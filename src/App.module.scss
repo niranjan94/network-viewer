@@ -1,0 +1,12 @@
+.app-container {
+  height: 100%;
+  .network-container {
+    height: 100%;
+    button[class*="FilterContainer-styles__addon-action-button"] {
+      display: none;
+    }
+    div[class*="InputHAR-styles__input-har-container"] {
+      display: none;
+    }
+  }
+}

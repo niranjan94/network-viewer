@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import classNames from 'classnames/bind';
+import Styles from './App.module.scss';
+import { NetworkViewer } from 'network-viewer';
+import { parseQueryString } from './utils';
+
+const contextClassNames = classNames.bind(Styles);
 
 function App() {
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [fileOptions, setFileOptions] = useState<any>(null);
+  const networkContainerClassName = contextClassNames('network-container', {
+    'network-container-data-loaded': isDataLoaded,
+  });
+
+  // read file queryString and load HAR file
+  useEffect(() => {
+    const parsedData = parseQueryString();
+    if (parsedData) {
+      setFileOptions(parsedData);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className={Styles['app-container']}>
+      <div className={networkContainerClassName}>
+        <NetworkViewer
+          onDataLoaded={() => setIsDataLoaded(true)}
+          {...(fileOptions || {})}
+        />
+      </div>
+    </section>
   );
 }
 
