@@ -2,6 +2,7 @@
   height: 100%;
   .network-container {
     height: 100%;
+
     button[class*="FilterContainer-styles__addon-action-button"] {
       display: none;
     }
@@ -9,4 +10,12 @@
       display: none;
     }
   }
+}
+
+[name="search"] + button {
+  display: none;
+}
+
+[name="search"] + button + div {
+  display: none;
 }
